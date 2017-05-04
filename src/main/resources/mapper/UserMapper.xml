@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yu.springboot.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.yu.springboot.model.User">
+        <result property="id" column="id" jdbcType="CHAR" />
+        <result property="name" column="name" jdbcType="CHAR" />
+        <result property="age" column="age" jdbcType="INTEGER" />
+        <result property="tel" column="tel" jdbcType="CHAR" />
+    </resultMap>
+    <resultMap id="myResultMap" type="com.yu.springboot.model.User">
+        <result property="tel" column="name" jdbcType="CHAR" />
+        <result property="name" column="tel" jdbcType="CHAR" />
+    </resultMap>
+    
+    <sql id="selectColumn">
+        id as id,
+        name as name,
+        age as age,
+        tel as tel
+
+    </sql>
+
+    <select id="total" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1)
+        from USER
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND name = #{name}
+        </if>
+        <if test="age != null and age != ''">
+            AND age = #{age}
+        </if>
+        <if test="tel != null and tel != ''">
+            AND tel = #{tel}
+        </if>
+    </select>
+
+    <select id="pageSearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+          <include refid="selectColumn"/>
+        from USER
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND name = #{name}
+        </if>
+        <if test="age != null and age != ''">
+            AND age = #{age}
+        </if>
+        <if test="tel != null and tel != ''">
+            AND tel = #{tel}
+        </if>
+        limit ${startIndex},${pageSize}
+    </select>
+</mapper>

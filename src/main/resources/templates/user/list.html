@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:if="${not #lists.isEmpty(list)}">
+    <li class="list-group-item row entry-default-child entry-default-xs weaker-font-color text-center">
+        <div><span>序号</span></div>
+        <div><span>ID</span></div>
+        <div><span>姓名</span></div>
+        <div><span>年龄</span></div>
+        <div><span>电话</span></div>
+    </li>
+    <th:block th:each="user,index:${list}">
+        <li class="list-group-item row entry-default-child entry-default-xs weaker-font-color text-center">
+            <div><span th:text="${index.count}">序号</span></div>
+            <div><span th:text="${user.id}" >ID</span></div>
+            <div><span th:text="${user.name}" >名称</span></div>
+            <div><span th:if="${user.age}">年龄</span></div>
+            <div><span th:text="${user.tel}">电话</span></div>
+        </li>
+    </th:block>
+</th:block>
+</body>
+</html>
